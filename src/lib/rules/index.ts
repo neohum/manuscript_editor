@@ -2,19 +2,30 @@ import { checkIndentRule } from './indent';
 import { checkPunctuationRule } from './punctuation';
 import { checkQuoteRule } from './quote';
 import { checkLineEndRule } from './lineEnd';
+import { checkSpelling } from './spelling';
+import { checkSpacing } from './spacing';
+import { checkNumberAlphaRule } from './numberAlpha';
+import { checkStructureRule } from './structure';
 import type { RuleChecker, RuleContext, RuleError } from './types';
 
 const allRules: RuleChecker[] = [
   checkIndentRule,
   checkPunctuationRule,
   checkQuoteRule,
-  checkLineEndRule
+  checkLineEndRule,
+  checkNumberAlphaRule
 ];
 
 export const runAllRules = (context: RuleContext): RuleError[] => {
   const errors: RuleError[] = [];
   
-  for (const checker of allRules) {
+  // Conditionally apply structure rule
+  const rulesToRun = [...allRules];
+  if (context.options?.enableTitleRule) {
+    rulesToRun.push(checkStructureRule);
+  }
+
+  for (const checker of rulesToRun) {
     const findings = checker(context);
     errors.push(...findings);
   }

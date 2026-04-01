@@ -12,11 +12,12 @@ type ScoreResult = {
   ruleViolationsCount: number;
 };
 
-export function ScoreBoard({ result, targetContent, submittedContent, onRetry }: { 
+export function ScoreBoard({ result, targetContent, submittedContent, onRetry, mode = 'dictation' }: { 
   result: ScoreResult | null, 
   targetContent: string, 
   submittedContent: string,
-  onRetry: () => void 
+  onRetry: () => void,
+  mode?: 'dictation' | 'correction'
 }) {
   const errorCells = useMemo(() => {
     if (!targetContent || !submittedContent) return new Set<number>();
@@ -59,7 +60,9 @@ export function ScoreBoard({ result, targetContent, submittedContent, onRetry }:
         
         {/* Header Summary */}
         <div className="text-center relative">
-          <h2 className="text-3xl font-bold font-serif text-slate-800 tracking-tight">받아쓰기 채점 결과</h2>
+          <h2 className="text-3xl font-bold font-serif text-slate-800 tracking-tight">
+            {mode === 'correction' ? '교정 퀴즈 채점 결과' : '받아쓰기 채점 결과'}
+          </h2>
           <div className="text-7xl font-black text-emerald-600 my-4 drop-shadow-sm font-serif">
             {result.score} <span className="text-3xl text-slate-300">점</span>
           </div>
@@ -83,7 +86,7 @@ export function ScoreBoard({ result, targetContent, submittedContent, onRetry }:
           >
             <i className="fi fi-rr-rotate-right"></i> 다시 시도하기
           </button>
-          <Link href="/dictation" className="w-48 py-3 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded-xl text-center shadow-md transition-all flex items-center justify-center gap-2">
+          <Link href={`/${mode}`} className="w-48 py-3 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded-xl text-center shadow-md transition-all flex items-center justify-center gap-2">
             <i className="fi fi-rr-list"></i> 다른 문제 풀기
           </Link>
         </div>

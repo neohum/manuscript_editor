@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from 'react';
 import { useEditorStore } from '@/stores/editorStore';
 import { ErrorExplanationPopup } from './ErrorExplanationPopup';
 
@@ -10,8 +11,16 @@ export function SidePanel() {
   const noSpaceCount = text.replace(/\s/g, '').length;
   const errCount = errorCells.size;
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    fetch('/api/auth/session')
+      .then(r => r.json())
+      .then(s => setIsLoggedIn(!!s?.user))
+      .catch(() => setIsLoggedIn(false));
+  }, []);
+
   return (
-    <aside className="w-72 flex-shrink-0 bg-white border-r border-gray-200 flex flex-col font-sans h-full shadow-sm">
+    <aside className="hidden lg:flex w-72 flex-shrink-0 bg-white border-r border-gray-200 flex-col font-sans h-full shadow-sm">
       <div className="p-6 flex-1 overflow-y-auto flex flex-col gap-6">
       <div>
         <h2 className="text-lg font-bold mb-4 font-serif text-gray-800 border-b pb-2">작성 현황</h2>
@@ -56,20 +65,23 @@ export function SidePanel() {
       <ErrorExplanationPopup cursorCell={cursorCell} violations={violations} />
       </div>
 
-      <div className="p-6 pt-4 border-t border-gray-100 bg-white flex flex-col gap-3 shrink-0">
-        <button 
-          className="w-full bg-slate-800 hover:bg-slate-900 text-white font-medium py-3 px-4 rounded-md shadow-sm transition-all text-sm"
-          onClick={() => alert("MVP 자유 작성 환경입니다. 임시 저장되었습니다.")}
-        >
-          진행 상태 임시저장
-        </button>
-        <button 
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md shadow-sm transition-all text-sm"
-          onClick={() => alert("MVP 자유 작성 환경에서는 제출이 불가능합니다.")}
-        >
-          작성 완료 / 제출
-        </button>
-      </div>
+      {isLoggedIn && (
+        <div className="p-6 pt-4 border-t border-gray-100 bg-white flex flex-col gap-3 shrink-0">
+          <button 
+            className="w-full bg-slate-800 hover:bg-slate-900 text-white font-medium py-3 px-4 rounded-md shadow-sm transition-all text-sm"
+            onClick={() => alert("MVP 자유 작성 환경입니다. 임시 저장되었습니다.")}
+          >
+            진행 상태 임시저장
+          </button>
+          <button 
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md shadow-sm transition-all text-sm"
+            onClick={() => alert("MVP 자유 작성 환경에서는 제출이 불가능합니다.")}
+          >
+            작성 완료 / 제출
+          </button>
+        </div>
+      )}
+
     </aside>
   );
 }

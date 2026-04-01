@@ -14,9 +14,12 @@ export default function DictationPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/problems?mode=dictation&level=1')
+    fetch('/api/problems?mode=dictation')
       .then(res => res.json())
       .then(data => {
+        if (Array.isArray(data)) {
+          data.sort((a, b) => a.level - b.level);
+        }
         setProblems(data);
         setLoading(false);
       });

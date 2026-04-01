@@ -19,7 +19,7 @@ export default function FreeEditorPage() {
         </p>
 
         <div className="mt-8 w-full flex justify-center">
-          <ManuscriptEditor />
+          <ManuscriptEditor enableTitleRule={true} />
         </div>
       </div>
     </div>

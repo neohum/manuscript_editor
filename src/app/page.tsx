@@ -33,6 +33,14 @@ export default function Home() {
       icon: <i className="fi fi-rr-bullseye"></i>,
       theme: "group hover:bg-rose-50 border border-rose-200 shadow-rose-900/5",
       iconBg: "bg-rose-100/60 text-rose-700",
+    },
+    {
+      title: "내 학습 리포트",
+      description: "나의 누적 학습 데이터를 분석하여, 가장 취약한 맞춤법 및 띄어쓰기 규칙을 파악합니다.",
+      href: "/reports",
+      icon: <i className="fi fi-rr-chart-pie-alt"></i>,
+      theme: "group hover:bg-indigo-50 border border-indigo-200 shadow-indigo-900/5",
+      iconBg: "bg-indigo-100/60 text-indigo-700",
     }
   ];
 
@@ -61,7 +69,7 @@ export default function Home() {
               </p>
               
               <div className="mt-auto pt-6 flex items-center text-sm font-semibold text-slate-400 group-hover:text-slate-700 transition-colors">
-                모드 시작하기 
+                이동하기 
                 <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </div>

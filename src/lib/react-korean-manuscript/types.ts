@@ -106,6 +106,8 @@ export interface ManuscriptProps {
   showRowNums?: boolean;
   /** 맞춤법 오류 셀 인덱스 집합 */
   errorCells?: Set<number>;
+  /** 오류 설명 텍스트 모음 (cellIndex -> message) */
+  errorMessages?: Record<number, string>;
   /** TTS 읽기 중 강조할 셀 인덱스 집합 */
   highlightCells?: Set<number> | null;
   /** 특정 페이지만 렌더링 (썸네일 모드) */
