@@ -8,12 +8,12 @@ interface ManuscriptCellProps {
 }
 
 export function ManuscriptCell({ char, isActive, isError = false, onClick }: ManuscriptCellProps) {
-  let bgClass = "bg-white";
+  let bgClass = "bg-transparent";
   if (isError) bgClass = "bg-red-100";
   
   return (
     <div 
-      className={`relative flex items-center justify-center w-full h-full aspect-square cursor-pointer transition-colors ${bgClass}`}
+      className={`relative flex items-center justify-center w-full h-full cursor-pointer transition-colors ${bgClass}`}
       onClick={onClick}
     >
       <span className={`z-10 select-none pointer-events-none font-serif text-gray-800 ${isError ? 'text-red-700 font-bold' : ''}`}>

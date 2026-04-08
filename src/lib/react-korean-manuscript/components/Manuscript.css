@@ -24,14 +24,14 @@
     margin-bottom: 0;
 }
 
-/* 행 번호 사이드바 */
 .manuscript-row-nums {
     position: absolute;
-    left: -1.6rem;
+    right: 100%;
     top: 0;
+    bottom: 0;
+    padding-right: 0.5rem;
     display: flex;
     flex-direction: column;
-    height: 100%;
 }
 
 .manuscript-row-num {
@@ -58,9 +58,11 @@
 .manuscript-grid {
     display: grid;
     grid-auto-rows: 1fr;
-    gap: 1px;
-    background-color: var(--manuscript-grid-line, #c8b89a);
-    border: 3px solid var(--manuscript-grid-line, #c8b89a);
+    /* Removed gap and background to fix high-DPI scaling subpixel bugs */
+    border-top: 2px solid var(--manuscript-grid-line, #c8b89a);
+    border-left: 2px solid var(--manuscript-grid-line, #c8b89a);
+    border-right: 1px solid var(--manuscript-grid-line, #c8b89a);
+    border-bottom: 1px solid var(--manuscript-grid-line, #c8b89a);
     container-type: inline-size;
 }
 
@@ -80,6 +82,8 @@
     position: relative;
     box-sizing: border-box;
     width: 100%;
+    border-right: 1px solid var(--manuscript-grid-line, #c8b89a);
+    border-bottom: 1px solid var(--manuscript-grid-line, #c8b89a);
 }
 
 /* No longer need cell-row-end border overrides since we use gap */

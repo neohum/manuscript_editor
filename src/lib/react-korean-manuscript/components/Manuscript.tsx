@@ -239,21 +239,23 @@ export function Manuscript({
         const globalIndexOffset = actualPageIndex * blockSize;
         return (
           <div key={`page-${actualPageIndex}`} className="manuscript-page-block">
-            {showRowNums && (
-              <div className="manuscript-row-nums">
-                {Array.from({ length: rows }, (_, i) => (
-                  <div key={i} className="manuscript-row-num">{i + 1}</div>
-                ))}
+            <div className="relative w-full">
+              {showRowNums && (
+                <div className="manuscript-row-nums">
+                  {Array.from({ length: rows }, (_, i) => (
+                    <div key={i} className="manuscript-row-num">{i + 1}</div>
+                  ))}
+                </div>
+              )}
+              <div
+                className="manuscript-grid"
+                style={{
+                  gridTemplateColumns: `repeat(${columns}, 1fr)`,
+                  // We let CSS Grid auto-size the rows based on the cells' aspect-ratio: 1!
+                }}
+              >
+                {blockCells.map((cell, i) => renderCell(cell, globalIndexOffset + i))}
               </div>
-            )}
-            <div
-              className="manuscript-grid"
-              style={{
-                gridTemplateColumns: `repeat(${columns}, 1fr)`,
-                // We let CSS Grid auto-size the rows based on the cells' aspect-ratio: 1!
-              }}
-            >
-              {blockCells.map((cell, i) => renderCell(cell, globalIndexOffset + i))}
             </div>
             <div className="manuscript-page-num">- {actualPageIndex + 1} -</div>
           </div>
